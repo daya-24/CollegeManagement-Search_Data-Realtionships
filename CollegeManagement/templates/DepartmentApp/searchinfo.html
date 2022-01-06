@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+{% block title %}
+    <title>Show Department Page</title>
+{% endblock %}
+{% block search %}
+
+{% endblock %}
+{% block content %}
+<div class="container" style="background-color:lightblue;margin-top:4%">
+    <h2 style="text-align:center;">Department Details</h2>
+    <table class="table table-striped table-light" style="width:90%;margin:auto">
+        <tr >
+
+            <th>Department Name</th>
+            <th>Intake</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        {% for dept in department %}
+            <tr >
+
+                <td>{{dept.Department_Name}}</td>
+                <td>{{dept.Intake}}</td>
+                <td><a href="{% url 'update_dept' dept.id %}"><button class="btn btn-warning">Update</button></a></td>
+                <td><a href="{% url 'delete_dept' dept.id %}"><button class="btn btn-danger">Delete</button></a></td>
+            </tr>
+        {% endfor %}
+    </table>
+   <br>
+   <br>
+    <h2 style="text-align:center">Faculty in Department</h2>
+    <table class="table table-striped table-light" style="width:90%;margin:auto">
+        <tr >
+
+            <th>Department Name</th>
+            <th>Professor ID</th>
+            <th>Professor Name</th>
+            <th>Salary</th>
+        </tr>
+        {% for fac in faculty %}
+            <tr >
+                <td>
+                    {% for var1 in fac.department.all %}
+
+                    {{var1.Department_Name}}
+                    <br>
+
+                    {% endfor %}
+                </td>
+                <td>{{fac.Faculty_ID}}</td>
+                <td>{{fac.Faculty_Name}}</td>
+                <td>{{fac.Faculty_Salary}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <br>
+    <h2 style="text-align:center">Students in Department</h2>
+    <table class="table table-striped table-light" style="width:90%;margin:auto">
+        <tr >
+
+            <th>Student RollNo</th>
+            <th>Student Name</th>
+            <th>Grade</th>
+            <th>Department</th>
+        </tr>
+        {% for student in student %}
+            <tr>
+
+                <td>{{student.Roll_No}}</td>
+                <td>{{student.Student_Name}}</td>
+                <td>{{student.Grade}}</td>
+                <td>{{student.department.Department_Name}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+</div>
+{% endblock %}

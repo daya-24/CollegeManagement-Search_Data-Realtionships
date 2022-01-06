@@ -1,0 +1,66 @@
+
+{% extends 'layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    <title>Faculty Data</title>
+{% endblock %}
+
+{% block search %}
+<ul class="navbar-nav ml-auto">
+        <form method="post" class="form-inline" style="margin-right:auto">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" type="search" name="searchdata" placeholder="Search" aria-label="Search">
+            <button class="btn btn-info"  type="submit">Faculty</button>
+        </form>
+    </ul>
+{% endblock %}
+
+
+{% block content %}
+<p class="h3" align="center">Faculty Data</p>
+<br><br>
+<table class="table table-striped">
+    <tr>
+
+        <th>Department</th>
+        <th>Faculty ID</th>
+        <th>Faculty Name</th>
+        <th>Faculty Salary</th>
+        <th>Action</th>
+        <th>Action</th>
+
+    </tr>
+
+     {% for p1 in show_obj %}
+    <tr>
+        <td>
+            {% for var in p1.department.all %}
+
+            {{var.Department_Name}}<br>
+            {% endfor %}
+        </td>
+
+
+        <td>{{p1.Faculty_ID}}</td>
+        <td>{{p1.Faculty_Name}}</td>
+        <td>{{p1.Faculty_Salary}}</td>
+
+        <td>
+            <a href="{% url 'delete_fac' p1.id %}">
+                <button class="btn btn-danger">Delete</button>
+            </a>
+        </td>
+
+        <td>
+            <a href="{% url 'update_fac' p1.id %}">
+                <button class="btn btn-warning">Update</button>
+            </a>
+        </td>
+
+    </tr>
+    {% endfor %}
+</table>
+<a class="btn btn-secondary btn-lg " href="{% url 'add_fac' %}">Add Faculty </a>
+
+{% endblock %}
